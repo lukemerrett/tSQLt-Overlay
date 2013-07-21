@@ -33,7 +33,7 @@ namespace tSqlTOverlay.UnitTests.Application
         [Test]
         public void BuildExecuteTestScript_ProvidedTestRecord_ReturnsScriptToRunSingleTest()
         {
-            const string expectedValue = "EXEC tSQLt.Run 'testSchema.[test record exists]';";
+            const string expectedValue = "EXEC tSQLt.Run '[testSchema].[test record exists]';";
 
             var testRecord = new TestRecord
             {
@@ -52,7 +52,7 @@ namespace tSqlTOverlay.UnitTests.Application
         [Test]
         public void BuildExecuteTestScript_ProvidedTestSchema_ReturnsScriptToRunAllTestsInThatSchema()
         {
-            const string expectedValue = "EXEC tSQLt.Run 'testSchema';";
+            const string expectedValue = "EXEC tSQLt.Run '[testSchema]';";
 
             var testSchema = new TestSchema
             {

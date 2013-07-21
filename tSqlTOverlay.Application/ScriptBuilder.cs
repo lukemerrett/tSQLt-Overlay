@@ -27,7 +27,10 @@ namespace tSqlTOverlay.Application
         /// <returns>A SQL statement for running a given test.</returns>
         public string BuildExecuteTestScript(TestRecord testRecord)
         {
-            return string.Format("{0} '{1}.[{2}]';", EXEC_TSQLT_RUN, testRecord.Schema.Name, testRecord.TestName);
+            var schema = RemoveSquareBrackets(testRecord.Schema.Name);
+            var testName = RemoveSquareBrackets(testRecord.TestName);
+
+            return string.Format("{0} '[{1}].[{2}]';", EXEC_TSQLT_RUN, schema, testName);
         }
 
         /// <summary>
@@ -37,7 +40,14 @@ namespace tSqlTOverlay.Application
         /// <returns>A SQL statement for running all tests in a given schema.</returns>
         public string BuildExecuteTestScript(TestSchema testSchema)
         {
-            return string.Format("{0} '{1}';", EXEC_TSQLT_RUN, testSchema.Name);
+            var schema = RemoveSquareBrackets(testSchema.Name);
+
+            return string.Format("{0} '[{1}]';", EXEC_TSQLT_RUN, schema);
+        }
+
+        private string RemoveSquareBrackets(string name)
+        {
+            return name.Trim('[', ']');
         }
     }
 }
