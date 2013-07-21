@@ -28,8 +28,8 @@ namespace tSqlTOverlay.Application
 
             foreach (Match match in matches)
             {
-                var fullTestName = match.Groups[1].Value;
-                var success = match.Groups[2].Value;
+                var fullTestName = match.Groups[1].Value.Trim();
+                var success = match.Groups[2].Value.Trim();
 
                 var testParts = fullTestName.Split('.');
 
