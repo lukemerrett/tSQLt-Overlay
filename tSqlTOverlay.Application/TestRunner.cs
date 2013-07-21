@@ -1,21 +1,25 @@
-﻿using tSqlTOverlay.Application.Models;
+﻿using System.Collections.Generic;
+using tSqlTOverlay.Application.Models;
 
 namespace tSqlTOverlay.Application
 {
     public class TestRunner
     {
+        private readonly IConnection _connection;
+
         private readonly IScriptBuilder _scriptBuilder;
 
-        public TestRunner(IScriptBuilder scriptBuilder)
+        public TestRunner(IConnection connection, IScriptBuilder scriptBuilder)
         {
+            _connection = connection;
             _scriptBuilder = scriptBuilder;
         }
 
-        public TestResult RunAllTests()
+        public IEnumerable<TestResult> RunAllTests()
         {
             var testScript = _scriptBuilder.BuildExecuteAllTestsScript();
 
-            return new TestResult { Success = true };
+            return new List<TestResult>();
         }
 
         public TestResult RunSingleTest(TestRecord testToRun)
@@ -25,11 +29,11 @@ namespace tSqlTOverlay.Application
             return new TestResult { Success = true };
         }
 
-        public TestResult RunTestsInSchema(TestSchema testSchemaToRun)
+        public IEnumerable<TestResult> RunTestsInSchema(TestSchema testSchemaToRun)
         {
             var testScript = _scriptBuilder.BuildExecuteTestScript(testSchemaToRun);
 
-            return new TestResult { Success = true };
+            return new List<TestResult>();
         }
     }
 }

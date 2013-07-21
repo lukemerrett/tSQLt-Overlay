@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection.cs" />
+    <Compile Include="IConnection.cs" />
     <Compile Include="IScriptBuilder.cs" />
     <Compile Include="Models\TestSchema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -46,6 +49,9 @@
     <Compile Include="Models\TestResult.cs" />
     <Compile Include="ScriptBuilder.cs" />
     <Compile Include="TestRunner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
