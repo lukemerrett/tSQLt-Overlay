@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using tSqlTOverlay.Application.Models;
 
 namespace tSqlTOverlay.Application
@@ -12,10 +13,13 @@ namespace tSqlTOverlay.Application
 
         private readonly IScriptBuilder _scriptBuilder;
 
-        public TestRunner(IConnection connection, IScriptBuilder scriptBuilder)
+        private readonly IResultParser _resultParser;
+
+        public TestRunner(IConnection connection, IScriptBuilder scriptBuilder, IResultParser resultParser)
         {
             _connection = connection;
             _scriptBuilder = scriptBuilder;
+            _resultParser = resultParser;
         }
 
         /// <summary>
@@ -26,7 +30,9 @@ namespace tSqlTOverlay.Application
         {
             var testScript = _scriptBuilder.BuildExecuteAllTestsScript();
 
-            return new List<TestResult>();
+            var output = _connection.ExecuteScript(testScript);
+
+            return _resultParser.Parse(output);
         }
 
         /// <summary>
@@ -38,7 +44,9 @@ namespace tSqlTOverlay.Application
         {
             var testScript = _scriptBuilder.BuildExecuteTestScript(testToRun);
 
-            return new TestResult { Success = true };
+            var output = _connection.ExecuteScript(testScript);
+
+            return _resultParser.Parse(output).SingleOrDefault();
         }
 
         /// <summary>
@@ -50,7 +58,9 @@ namespace tSqlTOverlay.Application
         {
             var testScript = _scriptBuilder.BuildExecuteTestScript(testSchemaToRun);
 
-            return new List<TestResult>();
+            var output = _connection.ExecuteScript(testScript);
+
+            return _resultParser.Parse(output);
         }
     }
 }

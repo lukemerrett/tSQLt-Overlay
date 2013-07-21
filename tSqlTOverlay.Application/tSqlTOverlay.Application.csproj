@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="ResultParser.cs" />
     <Compile Include="IConnection.cs" />
+    <Compile Include="IResultParser.cs" />
     <Compile Include="IScriptBuilder.cs" />
     <Compile Include="Models\TestSchema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

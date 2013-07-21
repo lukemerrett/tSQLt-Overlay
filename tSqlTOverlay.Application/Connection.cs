@@ -39,9 +39,16 @@ namespace tSqlTOverlay.Application
 
                 sqlConnection.InfoMessage += sqlConnection_InfoMessage;
 
-                using (var sqlCommand = new SqlCommand(script))
+                using (var sqlCommand = new SqlCommand(script, sqlConnection))
                 {
-                    sqlCommand.ExecuteNonQuery();
+                    try
+                    {
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        _scriptOutput = e.Message;
+                    }
                 }
 
                 return _scriptOutput;
